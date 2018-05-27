@@ -1,3 +1,4 @@
+// 프로그램 6.5
 package com.example.java.refactoring.calcdistance;
 
 import java.util.Scanner;
