@@ -1,4 +1,14 @@
 // 프로그램 6.14
+//
+// 연습문제:  
+//   1) CalcDistance 클래스의 readPoint와 readNamedPoint 메소드를
+//      각각 Point 클래스와 NamedPoint 클래스로 이동시키시오.
+//      (리팩토링 방법 Move를 활용)
+//
+//   2) 두 메소드 이름을 모두 read로 변경하시오.
+//      (리팩토링 방법 Rename을 활용. 기존 이름을 참고하는 부분도 함께 변경되어야 함.)
+//
+
 package com.example.java.refactoring.calcdistanceclass;
 
 import java.util.Scanner;
