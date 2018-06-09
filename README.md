@@ -10,3 +10,46 @@ Refactoring(리팩토링)
 -	상수 추출(Extract Constant) : 상수 수식을 클래스 상수로 추출한다.
 -	인라인 (Inline) : 메소드 호출 부분을 메소드 본체로 대치함으로써 메소드 호출을 제거한다.
 -	매개변수 도출 (Introduce Parameter) : 선택한 수식을 매개변수로 도출한다.
+
+### 메소드추출(Method extraction) 예제
++ Before Method Extraction CalcDistance Class
+<pre><code> public class CalcDistance {
+	public static void main(String[] args) {
+		int x, y;
+		Scanner scan = new Scanner(System.in);
+		System.out.print("첫 번째 점의 좌표 x와 y를 입력하세요.");
+		x = scan.nextInt();
+		y = scan.nextInt();
+		Point p = new Point(x, y);
+		System.out.println("두 번째 점의 좌표 x와 y를 입력하세요.");
+		x = scan.nextInt();
+		y = scan.nextInt();
+		Point q = new Point(x,y);
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f",
+				p.toString(), q.toString(),
+				p.distanceFrom(q));
+	}
+}
+</code></pre>
++ After Method Extraction CalcDistance Class
+<pre><code>public class CalcDistance {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("첫 번째 점의 좌표 x와 y를 입력하세요.");
+		Point p = readPoint(scan);
+		System.out.println("두 번째 점의 좌표 x와 y를 입력하세요.");
+		Point q = readPoint(scan);
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f",
+				p.toString(), q.toString(),
+				p.distanceFrom(q));
+	}
+	private static Point readPoint(Scanner scan) {
+		int x;
+		int y;
+		x = scan.nextInt();
+		y = scan.nextInt();
+		Point p = new Point(x, y);
+		return p;
+	}
+}
+</code></pre>
