@@ -53,3 +53,47 @@ Refactoring(리팩토링)
 	}
 }
 </code></pre>
+### 매개변수 도출(Introduce Parameter) 예제
++ Before Introduce Parameter CalcDistance Class
+<pre><code>public class CalcDistance {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("첫 번째 점의 좌표 x와 y를 입력하세요.");
+		Point p = readPoint(scan);
+		System.out.println("두 번째 점의 좌표 x와 y를 입력하세요.");
+		Point q = readPoint(scan);
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f",
+				p.toString(), q.toString(),
+				p.distanceFrom(q));
+	}
+	private static Point readPoint(Scanner scan) {
+		int x;
+		int y;
+		x = scan.nextInt();
+		y = scan.nextInt();
+		Point p = new Point(x, y);
+		return p;
+	}
+}
+</code></pre>
++ After Introduce Parameter CalcDistance Class
+<pre><code>public class CalcDistance {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Point p = readPoint(scan, "첫 번째 점의 좌표 x와 y를 입력하세요.");
+		Point q = readPoint(scan, "두 번째 점의 좌표 x와 y를 입력하세요.");
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f",
+				p.toString(), q.toString(),
+				p.distanceFrom(q));
+	}
+	private static Point readPoint(Scanner scan, String msg) {
+		int x;
+		int y;
+		System.out.print(msg);
+		x = scan.nextInt();
+		y = scan.nextInt();
+		Point p = new Point(x, y);
+		return p;
+	}
+}
+</code></pre>
