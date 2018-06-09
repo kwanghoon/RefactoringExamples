@@ -87,11 +87,9 @@ Refactoring(리팩토링)
 				p.distanceFrom(q));
 	}
 	private static Point readPoint(Scanner scan, String msg) {
-		int x;
-		int y;
-		System.out.print(msg);
-		x = scan.nextInt();
-		y = scan.nextInt();
+		System.out.print(msg +" ");
+		int x = scan.nextInt();
+		int y = scan.nextInt();
 		Point p = new Point(x, y);
 		return p;
 	}
