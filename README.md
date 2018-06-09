@@ -95,3 +95,167 @@ Refactoring(리팩토링)
 	}
 }
 </code></pre>
+### 이동(Move) 예제
++ Before move & rename CalcDistance Class
+<pre><code>public class CalcDistance {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Point p = readPoint(scan, "첫 번째 점의 좌표 x와 y를 입력하세요.");
+		Point q = readPoint(scan, "두 번째 점의 좌표 x와 y를 입력하세요.");
+
+		NamedPoint r = readNamedPoint(scan, "세 번째 점의 좌표 x와 y를 입력하세요.");
+		NamedPoint s = readNamedPoint(scan, "네 번째 점의 좌표 x와 y를 입력하세요.");
+
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f", p.toString(), q.toString(), p.distanceFrom(q));
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f", p.toString(), r.toString(), p.distanceFrom(r));
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f", r.toString(), q.toString(), r.distanceFrom(q));
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f", r.toString(), s.toString(), r.distanceFrom(s));
+	}
+
+	private static Point readPoint(Scanner scan, String msg) {
+		System.out.print(msg);
+
+		int x = scan.nextInt();
+		int y = scan.nextInt();
+		Point q = new Point(x, y);
+		return q;
+	}
+
+	private static NamedPoint readNamedPoint(Scanner scan, String msg) {
+		System.out.print(msg);
+
+		String name = scan.next();
+		int x = scan.nextInt();
+		int y = scan.nextInt();
+		NamedPoint q = new NamedPoint(name, x, y);
+		return q;
+	}
+}
+</code></pre>
++ Before move & rename Point Class
+<pre><code>public class Point {
+	private int x, y;
+
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString() {
+		return "(" + x + "," + y + ")";
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public double distanceFrom(Point q) {
+		return Math.sqrt(Math.pow(q.x - x, 2) + Math.pow(q.y - y, 2));
+	}
+}
+</code></pre>
++ Before move & rename NamedPoint Class
+<pre><code>public class NamedPoint extends Point {
+	private String name;
+	
+	public NamedPoint(String name, int x, int y) {
+		super(x, y);
+		this.name = name;
+	}
+	
+	public String toString() {
+		return name + super.toString();
+	}
+	
+	public String getNam() {
+		return name;
+	}
+}
+</code></pre>
++ After move & rename CalcDistance Class
+<pre><code>public class CalcDistance {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Point p = Point.read(scan, "첫 번째 점의 좌표 x와 y를 입력하세요.");
+		Point q = Point.read(scan, "두 번째 점의 좌표 x와 y를 입력하세요.");
+
+		NamedPoint r = NamedPoint.read(scan, "세 번째 점의 좌표 x와 y를 입력하세요.");
+		NamedPoint s = NamedPoint.read(scan, "네 번째 점의 좌표 x와 y를 입력하세요.");
+
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f%n", p.toString(), q.toString(), p.distanceFrom(q));
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f%n", p.toString(), r.toString(), p.distanceFrom(r));
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f%n", r.toString(), q.toString(), r.distanceFrom(q));
+		System.out.printf("%s과(와) %s 사이의 거리 = %5.2f%n", r.toString(), s.toString(), r.distanceFrom(s));
+	}
+}
+
+</code></pre>
++ After move & rename Point Class
+<pre><code>public class Point {
+	private int x, y;
+
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString() {
+		return "(" + x + "," + y + ")";
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public double distanceFrom(Point q) {
+		return Math.sqrt(Math.pow(q.x - x, 2) + Math.pow(q.y - y, 2));
+	}
+
+	static Point read(Scanner scan, String msg) {
+		System.out.print(msg + " ");
+		int x = scan.nextInt();
+		int y = scan.nextInt();
+		Point q = new Point(x, y);
+		return q;
+	}
+}
+
+</code></pre>
++ After move & rename NamedPoint Class
+<pre><code>public class NamedPoint extends Point {
+	private String name;
+
+	public NamedPoint(String name, int x, int y) {
+		super(x, y);
+		this.name = name;
+	}
+
+	public String toString() {
+		return name + super.toString();
+	}
+
+	public String getNam() {
+		return name;
+	}
+
+	static NamedPoint read(Scanner scan, String msg) {
+		System.out.print(msg + " ");
+
+		String name = scan.next();
+		int x = scan.nextInt();
+		int y = scan.nextInt();
+		NamedPoint q = new NamedPoint(name, x, y);
+		return q;
+	}
+}
+</code></pre>
