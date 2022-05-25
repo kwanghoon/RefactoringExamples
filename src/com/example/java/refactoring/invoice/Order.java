@@ -1,4 +1,4 @@
-package com.example.refactoring.invoice;
+package com.example.java.refactoring.invoice;
 
 public class Order {
 	private double _amount;

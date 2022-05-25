@@ -1,4 +1,4 @@
-package com.example.refactoring.invoice;
+package com.example.java.refactoring.invoice;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,21 +23,49 @@ public class AnotherInvoice {
 		int count = 0;
 		
 		// print banner
-		_printer.print("*************************");
-		_printer.print("***** Customer Owes *****");
-		_printer.print("*************************");
+		printBanner();
 		
 		// calculate outstanding
+		Pair<Double,Integer> res = calculateOutstanding(e, new Pair<Double,Integer>(outstanding,count));
+		outstanding = res.a;
+		count = res.b;
+		
+		// print details
+		printDetails(outstanding, count);
+	}
+	
+	class Pair<A,B> {
+		A a;
+		B b;
+		public Pair(A a, B b) {
+			super();
+			this.a = a;
+			this.b = b;
+		}
+	}
+
+	private void printDetails(double outstanding, int count) {
+		_printer.print("name: " + _name);
+		_printer.print("amount: " + outstanding);
+		_printer.print("count: " + count);
+	}
+	
+	private Pair<Double,Integer> calculateOutstanding(Enumeration<Order> e, Pair<Double,Integer> pair) {
+		double outstanding = pair.a;
+		int count = pair.b;
+		
 		while (e.hasMoreElements()) {
 			Order each = e.nextElement();
 			outstanding += each.getAmount();
 			count += 1;
 		}
-		
-		// print details
-		_printer.print("name: " + _name);
-		_printer.print("amount: " + outstanding);
-		_printer.print("count: " + count);
+		return new Pair<Double,Integer>(outstanding,count);
+	}
+
+	private void printBanner() {
+		_printer.print("*************************");
+		_printer.print("***** Customer Owes *****");
+		_printer.print("*************************");
 	}
 	
 	public static void main(String[] args) {

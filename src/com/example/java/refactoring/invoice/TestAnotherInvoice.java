@@ -1,4 +1,4 @@
-package com.example.refactoring.invoice;
+package com.example.java.refactoring.invoice;
 
 import java.util.ArrayList;
 import java.util.Collections;
