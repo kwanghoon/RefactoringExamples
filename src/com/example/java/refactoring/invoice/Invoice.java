@@ -22,19 +22,32 @@ public class Invoice {
 		double outstanding = 0.0;
 		
 		// print banner
-		_printer.print("*************************");
-		_printer.print("***** Customer Owes *****");
-		_printer.print("*************************");
+		printBanner();
 		
 		// calculate outstanding
+		outstanding = calcOutstanding(e, outstanding);
+		
+		// print details
+		printDetails(outstanding);
+	}
+
+	private void printDetails(double outstanding) {
+		_printer.print("name: " + _name);
+		_printer.print("amount: " + outstanding);
+	}
+
+	private double calcOutstanding(Enumeration<Order> e, double outstanding) {
 		while (e.hasMoreElements()) {
 			Order each = e.nextElement();
 			outstanding += each.getAmount();
 		}
-		
-		// print details
-		_printer.print("name: " + _name);
-		_printer.print("amount: " + outstanding);
+		return outstanding;
+	}
+
+	private void printBanner() {
+		_printer.print("*************************");
+		_printer.print("***** Customer Owes *****");
+		_printer.print("*************************");
 	}
 
 	public static void main(String[] args) {

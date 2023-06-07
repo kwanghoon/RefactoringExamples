@@ -3,6 +3,8 @@ package com.example.java.refactoring.invoice;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+// import javafx.util.Pair;
+import java.util.AbstractMap.SimpleEntry;
 
 public class AnotherInvoice {
 	private MyCollection _orders;
@@ -23,21 +25,36 @@ public class AnotherInvoice {
 		int count = 0;
 		
 		// print banner
-		_printer.print("*************************");
-		_printer.print("***** Customer Owes *****");
-		_printer.print("*************************");
+		printBanner();
 		
 		// calculate outstanding
+		SimpleEntry<Double,Integer> se = calcOutstanding(e, outstanding, count);
+		outstanding = se.getKey();
+		count =se.getValue();
+		
+		// print details
+		printDetails(outstanding, count);
+	}
+
+	private void printDetails(double outstanding, int count) {
+		_printer.print("name: " + _name);
+		_printer.print("amount: " + outstanding);
+		_printer.print("count: " + count);
+	}
+	
+	private SimpleEntry<Double,Integer> calcOutstanding(Enumeration<Order> e, double outstanding, int count) {
 		while (e.hasMoreElements()) {
 			Order each = e.nextElement();
 			outstanding += each.getAmount();
 			count += 1;
 		}
-		
-		// print details
-		_printer.print("name: " + _name);
-		_printer.print("amount: " + outstanding);
-		_printer.print("count: " + count);
+		return new SimpleEntry<Double,Integer>(outstanding,count);
+	}
+
+	private void printBanner() {
+		_printer.print("*************************");
+		_printer.print("***** Customer Owes *****");
+		_printer.print("*************************");
 	}
 	
 	public static void main(String[] args) {
